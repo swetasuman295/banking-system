@@ -8,11 +8,14 @@ target/
 *.log
 
 # IDE
+.settings/
+.classpath
+.factorypath
+.project
 .idea/
-*.iml
 .vscode/
-*.swp
-*.swo
+*.iml
+
 
 # OS
 .DS_Store
@@ -30,3 +33,10 @@ dist/
 *.db
 .env
 application-local.yml
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+# ===== Docker =====
+postgres_data/
