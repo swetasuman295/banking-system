@@ -1,26 +1,22 @@
 package com.rabobank.banking.dto.request;
+import java.math.BigDecimal;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.math.BigDecimal;
+import lombok.*;
 
 /**
  * DTO for withdrawing money from account.
  * @author Sweta Rabobank Assignment
  * @version 1.0.0
  */
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "Request to withdraw money from account")
-public class WithdrawRequestDto {
+public final class WithdrawRequestDto {
 
     @NotBlank(message = "Account ID is required")
     @Schema(description = "Account ID", example = "ACC001", requiredMode = RequiredMode.REQUIRED )
@@ -37,37 +33,4 @@ public class WithdrawRequestDto {
 
     @Schema(description = "Transaction description", example = "ATM Withdrawal")
     private String description;
-
-	public String getAccountId() {
-		return accountId;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public String getCardNumber() {
-		return cardNumber;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-    
 }

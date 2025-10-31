@@ -1,24 +1,21 @@
 package com.rabobank.banking.dto.response;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Map;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * Error response DTO for API error handling.
  * @author Sweta Rabobank Assignment
  * @version 1.0.0
  */
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "Error response structure")
-public class ErrorResponseDto {
+public final class ErrorResponseDto {
 
 	@Schema(description = "Timestamp of error", example = "2025-10-26T10:30:00")
 	private LocalDateTime timestamp;

@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Transaction {
 	@Id
+	@Setter(AccessLevel.NONE)
 	@Column(length = 50)
 	private String transactionId;
 

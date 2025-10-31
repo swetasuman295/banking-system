@@ -1,15 +1,13 @@
 package com.rabobank.banking.dto.request;
 
+import java.math.BigDecimal;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.math.BigDecimal;
+import lombok.Value;
 
 /**
  * Request DTO for transaction to transfer money between accounts.
@@ -17,12 +15,10 @@ import java.math.BigDecimal;
  * @author Sweta Rabobank Assignment
  * @version 1.0.0
  */
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "Request to transfer money between accounts")
-public class TransferRequestDto {
+public final class TransferRequestDto {
 
 	@NotBlank(message = "Source account ID is required")
 	@Schema(description = "Source account ID", example = "ACC001", requiredMode = RequiredMode.REQUIRED )

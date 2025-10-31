@@ -40,3 +40,4 @@ mvnw
 mvnw.cmd
 # ===== Docker =====
 postgres_data/
+/.metadata/

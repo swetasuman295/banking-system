@@ -1,10 +1,7 @@
 package com.rabobank.banking.service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +42,6 @@ public class TransactionService {
 	private final TransactionRepository transactionRepository;
 	private final DebitCardPaymentStrategy debitCardStrategy;
 	private final CreditCardPaymentStrategy creditCardStrategy;
-	
 
 	/**
 	 * Withdraws money from an account using a debit or credit card. Adds a 1% fee
@@ -123,10 +119,10 @@ public class TransactionService {
 		return mapToTransactionResponse(transaction);
 	}
 
-	
 	/**
 	 * Validates that the provided card belongs to the given account and is still
 	 * valid for use.
+	 * 
 	 * @param cardNumber
 	 * @param account
 	 * @return
@@ -150,9 +146,9 @@ public class TransactionService {
 		return cardType == CardType.DEBIT ? debitCardStrategy : creditCardStrategy;
 	}
 
-	
 	/**
 	 * Creates a transaction record with all details like amount, fee, and balances.
+	 * 
 	 * @param accountId
 	 * @param toAccountId
 	 * @param type
@@ -181,9 +177,9 @@ public class TransactionService {
 		return "TXN-" + UUID.randomUUID().toString();
 	}
 
-	
 	/**
 	 * Converts a Transaction entity into a response DTO for API output.
+	 * 
 	 * @param transaction
 	 * @return
 	 */

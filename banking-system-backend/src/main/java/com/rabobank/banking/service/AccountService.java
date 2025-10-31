@@ -33,7 +33,9 @@ public class AccountService {
 
 	/**
 	 * Fetches balances for all active accounts.
-	 * @return
+	 * 
+	 * @return DTO containing list of account balances, total count, and total
+	 *         balance
 	 */
 	@Transactional(readOnly = true)
 	public AllAccountsBalanceResponseDto getAllAccountBalances() {
@@ -54,8 +56,10 @@ public class AccountService {
 
 	/**
 	 * Fetches an account by its ID.
+	 * 
 	 * @param accountId
-	 * @return
+	 * @return the account entity
+	 * @throws AccountNotFoundException if account with given ID doesn't exist
 	 */
 	@Transactional(readOnly = true)
 	public Account getAccountById(String accountId) {
@@ -65,10 +69,11 @@ public class AccountService {
 
 	/**
 	 * Fetches an account by its ID with a Lock for update
+	 * 
 	 * @param accountId
 	 * @return
 	 */
-	@Transactional(readOnly = true)
+	@Transactional
 	public Account getAccountByIdWithLock(String accountId) {
 		log.debug("Fetching account with lock: {}", accountId);
 		return accountRepository.findByIdWithLock(accountId).orElseThrow(() -> new AccountNotFoundException(accountId));
@@ -76,6 +81,7 @@ public class AccountService {
 
 	/**
 	 * Maps Account entity to AccountBalanceResponseDTO.
+	 * 
 	 * @param account
 	 * @return
 	 */
@@ -84,7 +90,7 @@ public class AccountService {
 		return AccountBalanceResponseDto.builder().accountId(account.getAccountId())
 				.accountNumber(account.getAccountNumber()).userName(account.getUser().getFullName())
 				.userEmail(account.getUser().getEmail()).balance(account.getBalance())
-				.cardType(card != null ? card.getCardType() : null)  // ✅ Null-safe
-		        .cardNumber(card != null ? card.getMaskedCardNumber() : "No card").active(account.isActive()).build();
+				.cardType(card != null ? card.getCardType() : null)
+				.cardNumber(card != null ? card.getMaskedCardNumber() : "No card").active(account.isActive()).build();
 	}
 }

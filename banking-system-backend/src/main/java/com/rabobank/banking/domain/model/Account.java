@@ -26,6 +26,7 @@ public class Account {
 
 	@Id
 	@Column(length = 20)
+	@Setter(AccessLevel.NONE)
 	@NotBlank(message = "Account ID is required")
 	private String accountId;
 
@@ -84,6 +85,12 @@ public class Account {
 		balance = balance.add(amount);
 	}
 
+	/**
+	 * Validates that the amount is positive and non-null.
+	 *
+	 * @param amount the amount to validate
+	 * @throws IllegalArgumentException if invalid
+	 */
 	private void validateAmount(BigDecimal amount) {
 		if (amount == null) {
 			throw new IllegalArgumentException("Amount cannot be null");
@@ -94,10 +101,21 @@ public class Account {
 		}
 	}
 
+	/**
+	 * Checks if the account has enough funds for a given amount.
+	 *
+	 * @param amount amount to compare
+	 * @return true if sufficient, false otherwise
+	 */
 	public boolean hasSufficientFunds(BigDecimal amount) {
 		return balance.compareTo(amount) >= 0;
 	}
 
+	/**
+	 * Returns the formatted account balance in euros.
+	 *
+	 * @return formatted balance string
+	 */
 	public String getFormattedBalance() {
 		return String.format("€%,.2f", balance);
 	}

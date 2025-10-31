@@ -1,28 +1,21 @@
 package com.rabobank.banking.dto.response;
-
-
-import com.rabobank.banking.domain.model.CardType;
-import com.rabobank.banking.domain.model.Transaction;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import com.rabobank.banking.domain.model.CardType;
+import com.rabobank.banking.domain.model.Transaction;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * Data transfer DTO for transaction response details after processing.
  * @author Sweta Rabobank Assignment
  * @version 1.0.0
  */
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Schema(description = "Transaction result information")
-public class TransactionResponseDto {
+public final class TransactionResponseDto {
 
 	@Schema(description = "Transaction ID", example = "TXN-20251026-001")
 	private String transactionId;

@@ -118,7 +118,7 @@ class AccountServiceTest {
         assertEquals("ACC001", acc1.getAccountId());
         assertEquals("NL91RABO0417164300", acc1.getAccountNumber());
         assertEquals("Ankit Kumar", acc1.getUserName());
-        assertEquals("ankitkumar@gmail.com", acc1.getUserEmail());
+        assertEquals("Ankitkumar@gmail.com", acc1.getUserEmail());
         assertEquals(new BigDecimal("1500.00"), acc1.getBalance());
         assertEquals(CardType.DEBIT, acc1.getCardType());
         assertTrue(acc1.isActive());
