@@ -1,0 +1,25 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+     
+logging:
+  level:
+    root: INFO
+    com.rabobank.banking: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate: DEBUG
+    
+server:
+  error:
+    include-stacktrace: always
+   

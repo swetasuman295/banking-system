@@ -1,0 +1,120 @@
+server:
+  port: 8080
+  
+  servlet:
+    context-path: /
+    
+  
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+   
+
+# ============================================
+# SPRING APPLICATION
+# ============================================
+spring:
+  application:
+    name: rabobank-banking-system
+    
+
+  # ============================================
+  # DATABASE CONFIGURATION - PostgreSQL
+  # ============================================
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/rabobank_banking}
+    username:  ${DB_USERNAME:rabobank_user}
+    password: ${DB_PASSWORD:rabobank_pass}
+    driver-class-name: org.postgresql.Driver
+    
+ 
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      
+  # ============================================
+  # JPA/HIBERNATE CONFIGURATION
+  # ============================================
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+         
+        order_inserts: true
+        order_updates: true
+       
+  # ============================================
+  # FLYWAY CONFIGURATION - Database Migrations
+  # ============================================
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    clean-disabled: false
+    
+# ============================================
+# LOGGING CONFIGURATION
+# ============================================
+logging:
+  level:
+    root: INFO
+    com.rabobank.banking: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.resource.transaction: ERROR
+    org.hibernate.internal.AbstractSharedSessionContract: ERROR
+    
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+    
+# ============================================
+# SPRINGDOC OPENAPI CONFIGURATION (Swagger)
+# ============================================
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+   
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+    
+# ============================================
+# ACTUATOR CONFIGURATION (Health Checks)
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+       
+  endpoint:
+    health:
+      show-details: always
+  server:
+    port: 8080 
+# ============================================
+# APPLICATION-SPECIFIC CONFIGURATION
+# ============================================
+banking:
+  transaction:
+    credit-card-fee-percentage: 0.01
+  card:
+    expiry-check-enabled: true
