@@ -25,11 +25,12 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/rabobank_banking
-      SPRING_DATASOURCE_USERNAME: rabobank_user
-      SPRING_DATASOURCE_PASSWORD: rabobank_pass
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
-      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/rabobank_banking
+      DB_USERNAME: rabobank_user
+      DB_PASSWORD: rabobank_pass
+      SPRING_PROFILES_ACTIVE: docker 
+      LOGGING_LEVEL_ORG_FLYWAYDB: DEBUG
+     
       SERVER_PORT: 8080
     ports:
       - "8080:8080"

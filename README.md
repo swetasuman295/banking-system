@@ -1,6 +1,7 @@
 # Rabobank Banking System
 
 Production-ready banking system with account management, withdrawals, and transfers.
+Its a spring boot application that handles account withdrawals and transfers with validations and a simple frontend.
 
 ##  Assignment Requirements Met
 
@@ -40,20 +41,21 @@ Production-ready banking system with account management, withdrawals, and transf
 ##  Quick Start
 
 ### Prerequisites
-- Java 17 or 21
 - Node.js 18+
 - Docker & Docker Compose
 - Maven 3.8+
 
-### 1. Start PostgreSQL
+### 1. Start Docker
 ```bash
-docker-compose up -d postgres
+docker-compose up --build
 ```
+Backend is fully containerized.
 
 ### 2. Run Backend
 ```bash
-cd backend
+cd banking-system-backend
 mvn clean install
+docker-compose up --build
 mvn spring-boot:run
 ```
 
@@ -62,7 +64,7 @@ Swagger UI: `http://localhost:8080/swagger-ui.html`
 
 ### 3. Run Frontend
 ```bash
-cd frontend
+cd banking-system-ui
 npm install
 npm run dev
 ```
@@ -148,6 +150,7 @@ Content-Type: application/json
 | **DEBIT** | 0% | €100 transaction = €100 total |
 | **CREDIT** | 1% | €100 transaction = €101 total (€1 fee) |
 
+This Is Implemented with strategy pattern :- every card type has its own payment strategy that caluclates fee differently.
 
 ##  Design Patterns
 
@@ -189,7 +192,7 @@ The system comes with pre-populated test data:
 
 | Account | User | Balance | Card Type | Card Number |
 |---------|------|---------|-----------|-------------|
-| ACC001 | John Doe | €50.500 | DEBIT | 4532...1234 |
+| ACC001 | John Doe | €1.500 | DEBIT | 4532...1234 |
 | ACC002 | Jane Smith | €2,000 | CREDIT | 5412...1234 |
 | ACC003 | Bob Johnson | €500 | DEBIT | 4916...0123 |
 
@@ -198,7 +201,7 @@ The system comes with pre-populated test data:
 1. **Currency**: EUR only (no multi-currency)
 2. **Precision**: BigDecimal with 2 decimal places
 3. **Credit Card Fee**: Charged immediately (not deferred)
-4. **Concurrency**: Pessimistic locking prevents race conditions
+4. **Concurrency**: Pessimistic locking prevents race conditions also checks to make sure balance cant got negative
 5. **Authentication**: Simplified (no OAuth/JWT for demo)
 6. **Card Validation**: Basic format check (no Luhn algorithm)
 7. **Transfers**: Within same bank only
@@ -264,6 +267,11 @@ Interactive documentation available at:
 - [ ] Audit log
 
 ## Known Issue
-- [ ] Fixed all sonarqube issues just one left just to show that i know this needs to be fixed and all others are fixed
+- [ ] One SonarQube issue left - I fixed all the others but left one intentionally to show I'm aware of code quality tools
 - [ ] Single currency only
-- [ ] No real-time notifications
+- [ ] No real-time notifications : could add WebSockets for live balance changes
+- [ ] add frontend to docker
+
+## Notes
+The frontend is made intentionally simple - just demonstrates the balance endpoint as required. The real focus is on the backend architecture and making sure the business logic is solid.
+All the assignment requirements are met, including the negative balance prevention (validated at three layers: API, service, and database), the 1% credit card fee, and the one-card-per-account rule.

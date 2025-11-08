@@ -1,7 +1,7 @@
 # Multi-stage build for Spring Boot application
 
 # Stage 1: Build
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy pom.xml and download dependencies (cached layer)
@@ -13,12 +13,12 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Add non-root user for security
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+RUN groupadd --system spring && \
+    useradd --system --gid spring --shell /bin/false spring
 
 # Copy JAR from build stage
 COPY --from=build /app/target/*.jar app.jar
